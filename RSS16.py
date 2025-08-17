@@ -2,6 +2,8 @@ import os
 import sys
 import subprocess
 import tempfile
+import re
+import time
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 # ===== GitHub 上の共通関数を一時ディレクトリにクローン =====
@@ -20,40 +22,78 @@ sys.path.append(SHARED_DIR)
 # ===== 共通関数のインポート =====
 from rss_utils import generate_rss
 from scraper_utils import extract_items
+from browser_utils import click_button_in_order
 
 # ===== 固定情報（学会サイト） =====
-BASE_URL = "https://www.jspen.or.jp/news"
-GAKKAI = "日本栄養治療学会"
+BASE_URL = "https://ohsugi-kanpo.co.jp/medical/package"
+GAKKAI = "大杉製薬（包装）"
 
-SELECTOR_TITLE = "body > div.flex.flex-col.relative.flex-1.mt-14 > div.max-w-5xl.mx-auto.w-full.pt-16.pb-24.lg\:pt-20.lg\:pb-40.px-4.md\:px-6.lg\:px-8 > ul li"
-title_selector = "p"
+SELECTOR_TITLE = "div.col article"
+title_selector = "h2"
 title_index = 0
 href_selector = "a"
 href_index = 0
-SELECTOR_DATE = "body > div.flex.flex-col.relative.flex-1.mt-14 > div.max-w-5xl.mx-auto.w-full.pt-16.pb-24.lg\:pt-20.lg\:pb-40.px-4.md\:px-6.lg\:px-8 > ul li"
-date_selector = "span"
+SELECTOR_DATE = "div.col article"  # typo修正済み
+date_selector = "time"
 date_index = 0
 year_unit = "."
 month_unit = "."
 day_unit = ""
 date_format = f"%Y{year_unit}%m{month_unit}%d{day_unit}"
 date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_unit}"
+# date_format = f"%Y{year_unit}%m{month_unit}%d{day_unit}"
+# date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_unit}"
+
+# ===== ポップアップ順序クリック設定 =====
+
+USE_POPUP = 1  # 0: ポップアップ処理しない, 1: 処理する
+POPUP_BUTTONS = ["はい"] if USE_POPUP else [] 
+WAIT_BETWEEN_POPUPS_MS = 500
+BUTTON_TIMEOUT_MS = 12000
+
+
 
 # ===== Playwright 実行ブロック =====
 with sync_playwright() as p:
     print("▶ ブラウザを起動中...")
     browser = p.chromium.launch(headless=True)
-    context = browser.new_context()
+    context = browser.new_context(
+        locale="ja-JP",
+        viewport={"width": 1366, "height": 900},
+        user_agent=(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        ),
+        extra_http_headers={"Accept-Language": "ja,en;q=0.8"},
+    )
     page = context.new_page()
 
     try:
         print("▶ ページにアクセス中...")
         page.goto(BASE_URL, timeout=30000)
+        page.wait_for_load_state("domcontentloaded", timeout=30000)
+        print("🌐 到達URL:", page.url)
+
+        # ---- ポップアップ順に処理（USE_POPUP が 1 のときだけ実行）----
+        if USE_POPUP and POPUP_BUTTONS:
+            for i, label in enumerate(POPUP_BUTTONS, start=1):
+                handled = click_button_in_order(page, label, step_idx=i, timeout_ms=BUTTON_TIMEOUT_MS)
+                if handled:
+                    page.wait_for_timeout(WAIT_BETWEEN_POPUPS_MS)
+                else:
+                    # 出ない日もあるサイトなら 'continue' に変更
+                    break
+        else:
+            print("ℹ ポップアップ処理はスキップしました（USE_POPUP=0 または ボタン未指定）")
+
+        # 本文読み込み
         page.wait_for_load_state("load", timeout=30000)
-    except TimeoutError as e:
+
+    except PlaywrightTimeoutError:
         print("⚠ ページの読み込みに失敗しました。")
         browser.close()
-        exit()
+        raise
 
     print("▶ 記事を抽出しています...")
     items = extract_items(
