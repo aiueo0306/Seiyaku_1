@@ -45,9 +45,8 @@ date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_uni
 # date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_unit}"
 
 # ===== ポップアップ順序クリック設定 =====
-
-USE_POPUP = 1  # 0: ポップアップ処理しない, 1: 処理する
-POPUP_BUTTONS = ["すべての Cookie を受け入れる"] if USE_POPUP else [] 
+POPUP_MODE = 1  # 0: ポップアップ処理しない, 1: 処理する
+POPUP_BUTTONS = ["すべての Cookie を受け入れる"] if POPUP_MODE else [] 
 WAIT_BETWEEN_POPUPS_MS = 500
 BUTTON_TIMEOUT_MS = 12000
 
@@ -75,8 +74,8 @@ with sync_playwright() as p:
         page.wait_for_load_state("domcontentloaded", timeout=30000)
         print("🌐 到達URL:", page.url)
 
-        # ---- ポップアップ順に処理（USE_POPUP が 1 のときだけ実行）----
-        if USE_POPUP and POPUP_BUTTONS:
+        # ---- ポップアップ順に処理（POPUP_MODE が 1 のときだけ実行）----
+        if POPUP_MODE and POPUP_BUTTONS:
             for i, label in enumerate(POPUP_BUTTONS, start=1):
                 handled = click_button_in_order(page, label, step_idx=i, timeout_ms=BUTTON_TIMEOUT_MS)
                 if handled:
@@ -85,7 +84,7 @@ with sync_playwright() as p:
                     # 出ない日もあるサイトなら 'continue' に変更
                     break
         else:
-            print("ℹ ポップアップ処理はスキップしました（USE_POPUP=0 または ボタン未指定）")
+            print("ℹ ポップアップ処理はスキップしました（POPUP_MODE=0 または ボタン未指定）")
 
         # 本文読み込み
         page.wait_for_load_state("load", timeout=30000)

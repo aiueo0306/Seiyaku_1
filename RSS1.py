@@ -43,6 +43,7 @@ date_format = f"%Y{year_unit}%m{month_unit}%d{day_unit}"
 date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_unit}"
 
 # ===== ポップアップ順序クリック設定 =====
+POPUP_MODE = 1  # 1: 実行 / 0: スキップ
 POPUP_BUTTONS = ["はい"]  # 正確なボタン表記だけを指定
 WAIT_BETWEEN_POPUPS_MS = 500
 BUTTON_TIMEOUT_MS = 12000
@@ -71,12 +72,15 @@ with sync_playwright() as p:
         print("🌐 到達URL:", page.url)
 
         # ---- ポップアップ順に処理 ----
-        for i, label in enumerate(POPUP_BUTTONS, start=1):
-            handled = click_button_in_order(page, label, step_idx=i, timeout_ms=BUTTON_TIMEOUT_MS)
-            if handled:
-                page.wait_for_timeout(WAIT_BETWEEN_POPUPS_MS)
-            else:
-                break  # 次に進めたい場合は continue に
+        if POPUP_MODE == 1 and POPUP_BUTTONS:
+            for i, label in enumerate(POPUP_BUTTONS, start=1):
+                handled = click_button_in_order(page, label, step_idx=i, timeout_ms=BUTTON_TIMEOUT_MS)
+                if handled:
+                    page.wait_for_timeout(WAIT_BETWEEN_POPUPS_MS)
+                else:
+                    break  # 次に進めたい場合は continue に
+        else:
+            print("ℹ ポップアップ処理をスキップ（POPUP_MODE=0）")
 
         # 本文読み込み
         page.wait_for_load_state("load", timeout=30000)
