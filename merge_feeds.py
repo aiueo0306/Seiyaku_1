@@ -4,7 +4,7 @@ from feedgen.feed import FeedGenerator
 
 # RSSフィード生成器の初期設定
 fg = FeedGenerator()
-fg.title('学会RSS統合')
+fg.title('製薬会社RSS統合')
 fg.link(href='https://example.com/rss_output/combined.xml', rel='self')
 fg.description('複数フィードを統合したマスターRSS')
 fg.language('ja')
@@ -18,7 +18,7 @@ for xml_file in glob('rss_output/*.xml'):
 
     d = feedparser.parse(xml_file)
 
-    # タイトルから学会名を抽出
+    # タイトルから製薬会社名を抽出
     feed_title = d.feed.get("title", "")
     if feed_title.endswith("トピックス"):
         source = feed_title.replace("トピックス", "").strip()
