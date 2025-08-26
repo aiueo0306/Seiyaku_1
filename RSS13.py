@@ -55,7 +55,7 @@ BUTTON_TIMEOUT_MS = 12000
 # ===== Playwright 実行ブロック =====
 with sync_playwright() as p:
     print("▶ ブラウザを起動中...")
-    browser = p.chromium.launch(headless=True)
+    browser = p.chromium.launch(headless=False)
     context = browser.new_context(
         locale="ja-JP",
         viewport={"width": 1366, "height": 900},
@@ -71,7 +71,7 @@ with sync_playwright() as p:
     try:
         print("▶ ページにアクセス中...")
         page.goto(BASE_URL, timeout=30000)
-        page.wait_for_load_state("networkidle", timeout=60000)
+        page.wait_for_load_state("domcontentloaded", timeout=30000)
         print("🌐 到達URL:", page.url)
 
         # ---- ポップアップ順に処理（POPUP_MODE が 1 のときだけ実行）----
