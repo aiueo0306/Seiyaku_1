@@ -71,7 +71,7 @@ with sync_playwright() as p:
     try:
         print("▶ ページにアクセス中...")
         page.goto(BASE_URL, timeout=120000)
-        page.wait_for_load_state("domcontentloaded", timeout=30000)
+        page.wait_for_load_state("domcontentloaded", timeout=120000)
         print("🌐 到達URL:", page.url)
 
         # ---- ポップアップ順に処理（POPUP_MODE が 1 のときだけ実行）----
