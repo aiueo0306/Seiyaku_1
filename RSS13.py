@@ -28,7 +28,7 @@ from browser_utils import click_button_in_order
 BASE_URL = "https://www.eisai.co.jp/news/index.html"
 GAKKAI = "エーザイ"
 
-SELECTOR_TITLE = "ul.list-news li"
+SELECTOR_TITLE = "ul.list-news"
 title_selector = "a"
 title_index = 0
 href_selector = "a"
