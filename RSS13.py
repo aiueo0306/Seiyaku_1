@@ -28,7 +28,7 @@ from browser_utils import click_button_in_order
 BASE_URL = "https://www.eisai.co.jp/news/index.html"
 GAKKAI = "エーザイ"
 
-SELECTOR_TITLE = "ul.list-news　li"
+SELECTOR_TITLE = "ul.list-news li"
 title_selector = "a"
 title_index = 0
 href_selector = "a"
@@ -70,8 +70,8 @@ with sync_playwright() as p:
 
     try:
         print("▶ ページにアクセス中...")
-        page.goto(BASE_URL, timeout=240000)
-        page.wait_for_load_state("domcontentloaded", timeout=240000)
+        page.goto(BASE_URL, timeout=300000)
+        page.wait_for_load_state("domcontentloaded", timeout=300000)
         print("🌐 到達URL:", page.url)
 
         # ---- ポップアップ順に処理（POPUP_MODE が 1 のときだけ実行）----
