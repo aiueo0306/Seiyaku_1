@@ -30,7 +30,7 @@ url = "https://www.abbvie.co.jp/press-release/2025-news-archive.html"
 current_year = datetime.datetime.now().year
 
 BASE_URL = re.sub(r"\d{4}", str(current_year), url, count=1)
-GAKKAI = "アッヴィ"
+GAKKAI = "アッヴィ(ニュース)"
 
 SELECTOR_TITLE = "div.cmp-container div.text.cmp-text-xx-large.single-column.standard"
 title_selector = "a"

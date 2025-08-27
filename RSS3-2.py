@@ -22,30 +22,38 @@ sys.path.append(SHARED_DIR)
 
 # ===== 共通関数のインポート =====
 from rss_utils import generate_rss
+from scraper_utils2 import extract_items_iframe
 from scraper_utils import extract_items
 from browser_utils import click_button_in_order
 
 # ===== 固定情報（学会サイト） =====
-BASE_URL = "https://www.aska-pharma.co.jp/iryouiyaku/?btn_ind=pha"
-GAKKAI = "あすか製薬(医療関係)"
+BASE_URL = "https://med.astrazeneca.co.jp/index.html"
+GAKKAI = "アストラゼネカ（添付文書）"
 
-SELECTOR_TITLE = "ul.c-list li"
+SELECTOR_TITLE = "li.rowli ul"
 title_selector = "a"
 title_index = 0
 href_selector = "a"
 href_index = 0
-SELECTOR_DATE = "ul.c-list li"
-date_selector = "span"
+SELECTOR_DATE = "li.rowli ul"  # typo修正済み
+date_selector = "p.datestyle"
 date_index = 0
-year_unit = "年"; month_unit = "月"; day_unit = "日"
+year_unit = "/"
+month_unit = "/"
+day_unit = ""
 date_format = f"%Y{year_unit}%m{month_unit}%d{day_unit}"
 date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_unit}"
 
 # ===== ポップアップ順序クリック設定 =====
 POPUP_MODE = 1  # 1: 実行 / 0: スキップ
-POPUP_BUTTONS = ["はい"]  # 正確なボタン表記だけを指定
+POPUP_BUTTONS = ["はい"]  # 必要に応じて編集
 WAIT_BETWEEN_POPUPS_MS = 500
 BUTTON_TIMEOUT_MS = 12000
+
+USE_IFRAME = True                      # ← iframeページなら True
+IFRAME_SELECTOR = "iframe"             # ← 必要なら絞り込み: "iframe[src*='xxx']"
+IFRAME_INDEX = 0                       # ← 複数ある場合の何番目か
+IFRAME_TIMEOUT_MS = 240000
 
 # ===== Playwright 実行ブロック =====
 with sync_playwright() as p:
@@ -73,6 +81,7 @@ with sync_playwright() as p:
         # ---- ポップアップ順に処理 ----
         if POPUP_MODE == 1 and POPUP_BUTTONS:
             for i, label in enumerate(POPUP_BUTTONS, start=1):
+                page.evaluate("$('.landingcustomertype').eq(0).click()")
                 handled = click_button_in_order(page, label, step_idx=i, timeout_ms=BUTTON_TIMEOUT_MS)
                 if handled:
                     page.wait_for_timeout(WAIT_BETWEEN_POPUPS_MS)
@@ -81,17 +90,15 @@ with sync_playwright() as p:
         else:
             print("ℹ ポップアップ処理をスキップ（POPUP_MODE=0）")
 
-        # 本文読み込み
-        page.wait_for_load_state("load", timeout=240000)
-
     except PlaywrightTimeoutError:
         print("⚠ ページの読み込みに失敗しました。")
         browser.close()
         raise
 
     print("▶ 記事を抽出しています...")
-    items = extract_items(
+    items = extract_items_iframe(
         page,
+        IFRAME_SELECTOR, 
         SELECTOR_DATE,
         SELECTOR_TITLE,
         title_selector,
@@ -103,12 +110,15 @@ with sync_playwright() as p:
         date_index,
         date_format,
         date_regex,
+        iframe_index=IFRAME_INDEX,     # ← 追加（オプション）
+        timeout_ms=IFRAME_TIMEOUT_MS,  # ← 追加（オプション）
+        
     )
 
     if not items:
         print("⚠ 抽出できた記事がありません。HTML構造が変わっている可能性があります。")
 
     os.makedirs("rss_output", exist_ok=True)
-    rss_path = "rss_output/Feed1.xml"
+    rss_path = "rss_output/Feed3-2.xml"
     generate_rss(items, rss_path, BASE_URL, GAKKAI)
     browser.close()

@@ -27,7 +27,7 @@ from browser_utils import click_button_in_order
 
 # ===== 固定情報（学会サイト） =====
 BASE_URL = "https://www.astellas.com/jp/"
-GAKKAI = "アステラス"
+GAKKAI = "アステラス(ニュース)"
 
 SELECTOR_TITLE = "div.view-content div.view-item"
 title_selector = "div.views-field-field-title"
@@ -43,7 +43,7 @@ date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_uni
 
 # ===== ポップアップ順序クリック設定 =====
 POPUP_MODE = 1  # 1: 実行 / 0: スキップ
-POPUP_BUTTONS = ["閉じる", "すべての Cookie を受け入れる"]  # 必要に応じて編集
+POPUP_BUTTONS = ["薬剤師"]  # 必要に応じて編集
 WAIT_BETWEEN_POPUPS_MS = 500
 BUTTON_TIMEOUT_MS = 12000
 

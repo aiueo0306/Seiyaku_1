@@ -26,7 +26,7 @@ from browser_utils import click_button_in_order
 
 # ===== 固定情報（学会サイト） =====
 BASE_URL = "https://www.otsuka.co.jp/"
-GAKKAI = "大塚製薬"
+GAKKAI = "大塚製薬(ニュース)"
 
 SELECTOR_TITLE = "div.home-topics__inner article"
 title_selector = "h3"

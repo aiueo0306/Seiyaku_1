@@ -27,7 +27,7 @@ from browser_utils import click_button_in_order
 
 # ===== 固定情報（学会サイト） =====
 BASE_URL = "https://www.astrazeneca.co.jp/media.html"
-GAKKAI = "アストラゼネカ"
+GAKKAI = "アストラゼネカ(ニュース)"
 
 SELECTOR_TITLE = "ul.az-filter-items__results-list li"
 title_selector = "div.az-filter-items__results-item-text"
@@ -43,7 +43,7 @@ date_regex = rf"(\d{{2,4}}){year_unit}(\d{{1,2}}){month_unit}(\d{{1,2}}){day_uni
 
 # ===== ポップアップ順序クリック設定 =====
 POPUP_MODE = 1  # 1: 実行 / 0: スキップ
-POPUP_BUTTONS = ["同意する"]  # 必要に応じて編集
+POPUP_BUTTONS = ["はい"]  # 必要に応じて編集
 WAIT_BETWEEN_POPUPS_MS = 500
 BUTTON_TIMEOUT_MS = 12000
 
