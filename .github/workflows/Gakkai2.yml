@@ -29,16 +29,21 @@ jobs:
           pip install -r requirements.txt
           playwright install chromium
 
-      # === RSSスクリプトの実行（失敗しても止めない） ===
-      - name: Run all RSS scripts
+      # === RSSスクリプトの実行（失敗しても止めない・最大3回リトライ） ===
+      - name: Run all RSS scripts (with retry)
         run: |
           for script in RSS*.py; do
             echo "▶ Running $script ..."
-            python "$script" || echo "$script failed" >> errors.log
+            success=false
+            for i in 1 2 3; do
+              python "$script" && { success=true; break; }
+              echo "⚠️  $script failed (attempt $i)"
+              sleep 10
+            done
+            if [ "$success" = false ]; then
+              echo "$script failed after 3 attempts" >> errors.log
+            fi
           done
-
-      - name: Merge RSS feeds into combined.xml
-        run: python merge_feeds.py
 
       # === XMLの保存・プッシュ ===
       - name: Commit and push changes
