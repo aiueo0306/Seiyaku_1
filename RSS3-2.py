@@ -53,7 +53,7 @@ BUTTON_TIMEOUT_MS = 12000
 USE_IFRAME = True                      # ← iframeページなら True
 IFRAME_SELECTOR = "iframe"             # ← 必要なら絞り込み: "iframe[src*='xxx']"
 IFRAME_INDEX = 0                       # ← 複数ある場合の何番目か
-IFRAME_TIMEOUT_MS = 240000
+IFRAME_TIMEOUT_MS = 30000
 
 # ===== Playwright 実行ブロック =====
 with sync_playwright() as p:
@@ -74,9 +74,9 @@ with sync_playwright() as p:
 
     try:
         print("▶ ページにアクセス中...")
-        page.goto(BASE_URL, timeout=240000)
+        page.goto(BASE_URL, timeout=30000)
         try:
-            page.wait_for_load_state("networkidle", timeout=10000)
+            page.wait_for_load_state("networkidle", timeout=30000)
         except Exception:
             page.wait_for_load_state("domcontentloaded")
         print("🌐 到達URL:", page.url)
