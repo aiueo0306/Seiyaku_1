@@ -25,7 +25,7 @@ from scraper_utils import extract_items
 from browser_utils import click_button_in_order
 
 # ===== 固定情報（学会サイト） =====
-BASE_URL = "https://www.eisai.co.jp/news/index.html"
+BASE_URL = "https://www.eisai.co.jp/index.html"
 GAKKAI = "エーザイ"
 
 SELECTOR_TITLE = "ul.list-news li"
