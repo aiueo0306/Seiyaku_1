@@ -1,13 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>あすか製薬(医療関係)トピックス</title><link>https://www.aska-pharma.co.jp/iryouiyaku/?btn_ind=pha</link><description>あすか製薬(医療関係)の最新トピック情報</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><language>ja</language><lastBuildDate>Sun, 07 Sep 2025 22:16:43 +0000</lastBuildDate><item><title>セキソビット錠100mg
-
-
-
-    包装・表示変更のご案内</title><link>https://www.aska-pharma.co.jp/iryouiyaku/?btn_ind=pha</link><description>セキソビット錠100mg
-
-
-
-    包装・表示変更のご案内</description><guid isPermaLink="false">https://www.aska-pharma.co.jp/iryouiyaku/news/filedownload.php?name=2a05b729eab2f6996b45f58814346ce3.pdf#20250723</guid><pubDate>Wed, 23 Jul 2025 00:00:00 +0000</pubDate></item><item><title>ラベプラゾールNa錠10mg「AA」
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>あすか製薬(医療関係)トピックス</title><link>https://www.aska-pharma.co.jp/iryouiyaku/?btn_ind=pha</link><description>あすか製薬(医療関係)の最新トピック情報</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><language>ja</language><lastBuildDate>Sun, 07 Sep 2025 23:16:35 +0000</lastBuildDate><item><title>ラベプラゾールNa錠10mg「AA」
 
 
 
@@ -39,4 +31,12 @@
 
 
 
-    製造販売承認取得のご案内</description><guid isPermaLink="false">https://www.aska-pharma.co.jp/iryouiyaku/news/filedownload.php?name=7f382b2a4cc04871c0a4e09b404e1136.pdf#20250818</guid><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate></item></channel></rss>
+    製造販売承認取得のご案内</description><guid isPermaLink="false">https://www.aska-pharma.co.jp/iryouiyaku/news/filedownload.php?name=7f382b2a4cc04871c0a4e09b404e1136.pdf#20250818</guid><pubDate>Mon, 18 Aug 2025 00:00:00 +0000</pubDate></item><item><title>スリンダ錠28
+
+
+
+    自主回収（クラスⅡ）のお知らせとお詫び</title><link>https://www.aska-pharma.co.jp/iryouiyaku/?btn_ind=pha</link><description>スリンダ錠28
+
+
+
+    自主回収（クラスⅡ）のお知らせとお詫び</description><guid isPermaLink="false">https://www.aska-pharma.co.jp/iryouiyaku/news/filedownload.php?name=f48bb1ee0009171ee587a5c6539de156.pdf#20250908</guid><pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate></item></channel></rss>
