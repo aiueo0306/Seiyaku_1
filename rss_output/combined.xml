@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>製薬会社RSS統合</title><link>https://example.com/rss_output/combined.xml</link><description>複数フィードを統合したマスターRSS</description><atom:link href="https://example.com/rss_output/combined.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><language>ja</language><lastBuildDate>Thu, 20 Aug 2026 05:56:55 +0000</lastBuildDate><item><title>【あすか製薬(ニュース)】【2026-08-17】2026年8月17日
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>製薬会社RSS統合</title><link>https://example.com/rss_output/combined.xml</link><description>複数フィードを統合したマスターRSS</description><atom:link href="https://example.com/rss_output/combined.xml" rel="self"/><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><language>ja</language><lastBuildDate>Thu, 20 Aug 2026 07:11:13 +0000</lastBuildDate><item><title>【あすか製薬(ニュース)】【2026-08-17】2026年8月17日
 
   女性活躍推進企業として「えるぼし認定」最高位3つ星 取得のお知らせ
  349.95 KB</title><link>https://www.aska-pharma.co.jp/news/filedownload.php?name=d4edf3b8753b2f352f3adf257636a394.pdf</link><description>2026年8月17日
@@ -13,7 +13,7 @@
 
 
 
-    製造販売承認取得のご案内</description><guid isPermaLink="false">https://www.aska-pharma.co.jp/iryouiyaku/news/filedownload.php?name=41b43fb6a8d99024c846dce99004ac8b.pdf#20260817</guid><pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate></item><item><title>【アルフレッサファーマ(医療機関)】【2026-07-14】「使用上の注意」改訂のお知らせを掲載いたしました。
+    製造販売承認取得のご案内</description><guid isPermaLink="false">https://www.aska-pharma.co.jp/iryouiyaku/news/filedownload.php?name=41b43fb6a8d99024c846dce99004ac8b.pdf#20260817</guid><pubDate>Mon, 17 Aug 2026 00:00:00 +0000</pubDate></item><item><title>【大杉製薬（研究会）】【2026-08-20】オースギ東京Web漢方セミナーのお知らせ（09月30日開催）</title><link>https://ohsugi-kanpo.co.jp/medical/study/3802</link><description>オースギ東京Web漢方セミナーのお知らせ（09月30日開催）</description><guid isPermaLink="false">https://ohsugi-kanpo.co.jp/medical/study/3802#20260820</guid><pubDate>Thu, 20 Aug 2026 00:00:00 +0000</pubDate></item><item><title>【アルフレッサファーマ(医療機関)】【2026-07-14】「使用上の注意」改訂のお知らせを掲載いたしました。
 																
 																ラベプラゾールNa錠10mg「AFP」,ラベプラゾールNa錠20mg「AFP」,ラベプラゾールNa錠5mg「AFP」</title><link>https://www.alfresa-pharma.co.jp/news/get/NEWS_ID/2243/</link><description>「使用上の注意」改訂のお知らせを掲載いたしました。
 																
